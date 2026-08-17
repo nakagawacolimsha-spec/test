@@ -7,11 +7,8 @@
     <style>
         /* === 共通設定 === */
         :root {
-            --color-bg: #FAFAFA; /* 白に近い淡いグレー */
-            --color-text: #333333;
-            --color-accent: #2C4C3B; /* 深いグリーン */
-            --color-water: #0075C2; /* ラベルのようなブルー */
-            /* キビキビとしたシャープなイージング */
+            --color-bg: #FFFFFF;
+            --color-text: #111111;
             --easing-sharp: cubic-bezier(0.19, 1, 0.22, 1); 
         }
 
@@ -31,41 +28,25 @@
             display: block;
         }
 
-        /* プレースホルダー（後から画像を入れる枠） */
+        /* プレースホルダー（後から写真を入れる枠） */
+        /* ※写真が入ることを想定し、文字が目立つよう少し暗めのグレーにしています */
         .placeholder {
-            background-color: #E0E0E0;
+            background-color: #333;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #999;
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
-            width: 100%;
-        }
-
-        /* === タイポグラフィ === */
-        .en-title {
-            font-size: 5vw;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            line-height: 1;
-            margin: 0;
-            text-transform: uppercase;
-        }
-        
-        .ja-subtitle {
+            color: #888;
             font-size: 1rem;
             letter-spacing: 0.1em;
-            margin-top: 1rem;
-            font-weight: normal;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: cover;
         }
 
-        .section-padding {
-            padding: 15vh 10vw;
-        }
-
-        /* === アニメーション設定（キビキビした動き） === */
-        /* マスク（クリップパス）でスパッと現れる設定 */
+        /* === アニメーション設定 === */
         .reveal-mask {
             clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
             transition: clip-path 1.2s var(--easing-sharp);
@@ -74,10 +55,9 @@
             clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
         }
 
-        /* 下からシャープにスライドイン */
         .reveal-up {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(30px);
             transition: opacity 1s var(--easing-sharp), transform 1s var(--easing-sharp);
         }
         .reveal-up.is-active {
@@ -85,13 +65,11 @@
             transform: translateY(0);
         }
 
-        /* 遅延用クラス */
         .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.2s; }
-        .delay-3 { transition-delay: 0.3s; }
+        .delay-2 { transition-delay: 0.3s; }
+        .delay-3 { transition-delay: 0.5s; }
 
-        /* === 各セクションのスタイル === */
-        /* Header */
+        /* === ヘッダー === */
         header {
             position: fixed;
             top: 0;
@@ -100,150 +78,94 @@
             padding: 2rem 4rem;
             box-sizing: border-box;
             z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            mix-blend-mode: difference; /* 背景色によって色が反転するスタイリッシュな手法 */
+            mix-blend-mode: difference;
             color: #fff;
         }
         .logo img {
-            height: 40px;
-            /* 背景透過ロゴを白く見せるためのフィルタ（ブレンドモードと併用） */
+            height: 35px;
             filter: brightness(0) invert(1);
         }
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-            margin: 0;
-            padding: 0;
-            font-size: 0.85rem;
-            letter-spacing: 0.1em;
-        }
 
-        /* ファーストビュー */
-        .hero {
-            height: 100vh;
+        /* === 写真で語るセクション (Story) === */
+        .photo-slide {
             position: relative;
+            width: 100vw;
+            height: 100vh; /* 画面いっぱいの高さ */
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .hero .placeholder {
+        
+        .photo-slide-inner {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-            background-color: #D6D6D6;
         }
-        .hero-copy {
+
+        .slide-copy {
             position: relative;
-            z-index: 2;
+            z-index: 10;
             color: #fff;
+            font-size: 2vw;
+            font-weight: 300;
+            letter-spacing: 0.3em;
             text-align: center;
             mix-blend-mode: difference;
-        }
-        .hero-copy h1 {
-            font-size: 2.5rem;
-            font-weight: 300;
-            letter-spacing: 0.2em;
-            line-height: 1.8;
             margin: 0;
         }
 
-        /* ABOUT */
-        .about-wrap {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .about-wrap p {
-            line-height: 2;
-            letter-spacing: 0.05em;
-            margin-bottom: 2rem;
-        }
-
-        /* JIGE */
-        .jige-section {
-            background-color: #111;
-            color: #fff;
-            position: relative;
-            overflow: hidden;
-        }
-        .jige-content {
+        /* === 商品紹介セクション (PRODUCT) === */
+        .product-section {
+            background-color: #FAFAFA;
+            padding: 20vh 10vw;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 4rem;
-        }
-        .jige-text {
-            width: 50%;
-        }
-        .jige-title {
-            font-size: 8vw; /* 大胆なタイポグラフィ */
-            margin-bottom: 2rem;
-        }
-        .jige-image {
-            width: 50%;
-            height: 60vh;
-        }
-
-        /* SHIRAMINE & BOTANICAL (枠のみのリスト) */
-        .grid-list {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-        .grid-item .placeholder {
-            aspect-ratio: 1 / 1;
-            margin-bottom: 1rem;
-        }
-        .grid-item h3 {
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
-        }
-
-        /* PRODUCT */
-        .product-section {
-            background-color: #fff;
-        }
-        .product-grid {
-            display: flex;
-            align-items: center;
-            justify-content: center;
             gap: 5vw;
         }
+        
         .product-images {
             display: flex;
             gap: 2rem;
             width: 60%;
+            align-items: flex-end; /* 画像の下端を揃える */
         }
+        
+        .product-images .img-wrap {
+            position: relative;
+        }
+
         .product-images img {
             width: 100%;
-            /* 背景の白を飛ばして馴染ませる */
-            mix-blend-mode: multiply; 
+            mix-blend-mode: multiply; /* 白背景を透過させて馴染ませる */
         }
+
         .product-text {
             width: 35%;
         }
 
-        /* DISTILLERY */
-        .distillery-image {
-            width: 100%;
-            height: 70vh;
-            margin-top: 4rem;
+        .en-title {
+            font-size: 4vw;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            margin: 0 0 1rem 0;
+        }
+        
+        .ja-subtitle {
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            margin: 0 0 2rem 0;
+            font-weight: normal;
         }
 
-        /* 共通フッター */
-        footer {
-            padding: 4rem;
-            text-align: center;
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            background-color: #f0f0f0;
+        .product-desc {
+            font-size: 0.85rem;
+            line-height: 2;
+            letter-spacing: 0.05em;
+            color: #555;
         }
     </style>
 </head>
@@ -253,152 +175,85 @@
         <div class="logo">
             <img src="背景透過 ロゴと文字 左右 グレー.png" alt="白峰蒸溜所">
         </div>
-        <nav>
-            <ul>
-                <li>ABOUT</li>
-                <li>JIGE</li>
-                <li>SHIRAMINE</li>
-                <li>PRODUCT</li>
-            </ul>
-        </nav>
     </header>
 
     <main>
-        <!-- 02 | TOPページ（ファーストビュー） -->
-        <section class="hero">
-            <!-- 後で白峰の美しい風景写真をここに入れます -->
-            <div class="placeholder reveal-mask" style="height: 100vh;">
-                [ここに白峰の風景写真を大きく配置します]
+        <!-- 写真で語るストーリーテリング -->
+        
+        <!-- 1枚目：ファーストビュー（風景） -->
+        <section class="photo-slide">
+            <div class="photo-slide-inner reveal-mask">
+                <div class="placeholder">[白峰の雄大な風景写真を全面に]</div>
             </div>
-            <div class="hero-copy reveal-up delay-1">
-                <h1>白峰を知る。<br>白峰から生まれるものを知る。</h1>
-            </div>
+            <h2 class="slide-copy reveal-up delay-2">白峰から、生まれる。</h2>
         </section>
 
-        <!-- 03 | ABOUT -->
-        <section class="section-padding">
-            <div class="about-wrap reveal-up">
-                <h2 class="en-title">ABOUT</h2>
-                <h3 class="ja-subtitle">まずは、「おいしい」から。</h3>
-                <br><br>
-                <p>白峰蒸溜所は、造り手のこだわりを押し付けるのではなく、<br>飲み手の感動を基準に酒を造ることを大切にしています。</p>
-                <p>自分が飲み手だったら、何を飲みたいか。<br>その問いから、この蒸溜所は始まりました。</p>
-                <p>飲み手に一番近い蒸溜所へ。</p>
+        <!-- 2枚目：自然素材（雪・水・植物） -->
+        <section class="photo-slide">
+            <div class="photo-slide-inner reveal-mask">
+                <div class="placeholder">[雪解け水や植物（クロモジなど）のクローズアップ写真]</div>
             </div>
+            <h2 class="slide-copy reveal-up delay-2">雪、水、そして植物。</h2>
         </section>
 
-        <!-- 04 | JIGE -->
-        <section class="section-padding jige-section">
-            <div class="jige-content">
-                <div class="jige-text reveal-up">
-                    <h2 class="en-title jige-title">JIGE</h2>
-                    <p>自分たちの地域を、白峰では「ジゲ」と呼ぶ。</p>
-                    <p>この土地を大切にしてきた人々の感覚が、<br>このひとつの言葉に込められています。</p>
-                    <p>“Locals call this ‘JIGE GIN’.”</p>
-                </div>
-                <!-- 後で白峰の人々や文化を感じる写真をここに入れます -->
-                <div class="placeholder jige-image reveal-mask delay-1">
-                    [ここにジゲ（地域）の文化を感じる写真を配置]
-                </div>
+        <!-- 3枚目：文化・歴史（古民家・JIGE） -->
+        <section class="photo-slide">
+            <div class="photo-slide-inner reveal-mask">
+                <div class="placeholder">[100年以上の古民家や、蒸留器の重厚な写真]</div>
             </div>
+            <h2 class="slide-copy reveal-up delay-2">100年の時を刻む場所。</h2>
         </section>
 
-        <!-- 08 | PRODUCT -->
-        <section class="section-padding product-section">
-            <div class="product-grid">
-                <div class="product-images">
-                    <!-- 提供いただいた商品写真 -->
-                    <div class="reveal-mask" style="width: 50%;">
-                        <img src="DSC_4311.jpg" alt="GOZEN CRAFT GIN ボトル">
-                    </div>
-                    <!-- 提供いただいたグラス写真 -->
-                    <div class="reveal-mask delay-2" style="width: 50%; padding-top: 10%;">
-                        <img src="DSC_4326.jpg" alt="ジントニック グラス">
-                    </div>
+        <!-- 商品紹介への切り替え -->
+        
+        <!-- PRODUCT：GOZEN -->
+        <section class="product-section">
+            <div class="product-images">
+                <!-- ボトル写真 -->
+                <div class="img-wrap reveal-mask delay-1" style="width: 55%;">
+                    <img src="DSC_4311.jpg" alt="GOZEN CRAFT GIN ボトル">
                 </div>
-                <div class="product-text reveal-up delay-3">
-                    <h2 class="en-title">GOZEN</h2>
-                    <h3 class="ja-subtitle">白峰から生まれたもの。</h3>
-                    <br>
-                    <p>SMALL BATCH CRAFT GIN</p>
-                    <p style="font-size: 0.85rem; line-height: 1.8; margin-top: 2rem;">
-                        単なるスペックではなく、この土地から生まれた理由をここに。<br>
-                        ラベルに描かれた等高線のような模様は、<br>
-                        白峰の自然とジオパークの力強さを表現しています。
-                    </p>
+                <!-- グラス写真（少し小さめに、高さをずらして配置） -->
+                <div class="img-wrap reveal-mask delay-2" style="width: 45%;">
+                    <img src="DSC_4326.jpg" alt="ジントニック グラス">
                 </div>
-            </div>
-        </section>
-
-        <!-- 05 | SHIRAMINE & 06 | BOTANICAL (枠のデモンストレーション) -->
-        <section class="section-padding">
-            <div class="reveal-up">
-                <h2 class="en-title">SHIRAMINE</h2>
-                <h3 class="ja-subtitle">ここにしかない理由。</h3>
             </div>
             
-            <div class="grid-list">
-                <!-- 後で各要素の写真を入れます -->
-                <div class="grid-item reveal-up delay-1">
-                    <div class="placeholder">[雪の写真]</div>
-                    <h3>SNOW - 雪</h3>
-                </div>
-                <div class="grid-item reveal-up delay-2">
-                    <div class="placeholder">[水の写真]</div>
-                    <h3>WATER - 水</h3>
-                </div>
-                <div class="grid-item reveal-up delay-3">
-                    <div class="placeholder">[植物/クロモジ等の写真]</div>
-                    <h3>BOTANICAL - 植物</h3>
-                </div>
-            </div>
-        </section>
-
-        <!-- 07 | DISTILLERY -->
-        <section class="section-padding" style="background-color: var(--color-bg);">
-            <div class="about-wrap reveal-up">
-                <h2 class="en-title">DISTILLERY</h2>
-                <h3 class="ja-subtitle">100年以上の古民家から。</h3>
-                <p style="margin-top: 2rem;">100年以上生きてきた建物の歴史や空気も、<br>素材のひとつとして酒に溶け込ませたい。</p>
-            </div>
-            <!-- 後で古民家や蒸留器の写真を入れます -->
-            <div class="placeholder distillery-image reveal-mask delay-1">
-                [ここに古民家の外観や蒸留器の横長写真を大きく配置]
+            <div class="product-text reveal-up delay-3">
+                <h2 class="en-title">GOZEN</h2>
+                <h3 class="ja-subtitle">白峰を飲む、クラフトジン。</h3>
+                <p class="product-desc">
+                    SMALL BATCH CRAFT GIN<br><br>
+                    造り手のこだわりではなく、<br>
+                    飲み手の感動を基準に。<br><br>
+                    ラベルに描かれた等高線は、<br>
+                    白峰の自然とジオパークの力強さ。<br>
+                    この土地の恵みを、一本のボトルに込めました。
+                </p>
             </div>
         </section>
 
     </main>
 
-    <footer>
-        <p>&copy; SHIRAMINE DISTILLERY. All Rights Reserved.</p>
-    </footer>
-
-    <!-- スクロールアニメーションを制御するJavaScript -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // アニメーションさせたい要素をすべて取得（reveal-mask と reveal-up）
             const revealElements = document.querySelectorAll('.reveal-mask, .reveal-up');
 
-            // Intersection Observerの設定
             const observerOptions = {
-                root: null, // ビューポートをルートとする
-                rootMargin: '0px 0px -10% 0px', // 画面の下から10%入ったところで発火
-                threshold: 0 // 少しでも見えたら発火
+                root: null,
+                rootMargin: '0px 0px -15% 0px', // 画面の下から15%入ったところで発火
+                threshold: 0
             };
 
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
-                    // 要素が画面内に入ったら
                     if (entry.isIntersecting) {
-                        // is-activeクラスを付与してCSSアニメーションを開始
                         entry.target.classList.add('is-active');
-                        // 一度発火したら監視を解除する（キビキビとした動きを一度だけ見せるため）
                         observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
-            // 各要素を監視対象に追加
             revealElements.forEach(el => {
                 observer.observe(el);
             });
