@@ -3,380 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ジュニアゴルフクリニック2026 in ツインフィールズ</title>
-    <!-- Google Fonts：洗練されたモダンゴシック「Noto Sans JP」 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>白峰蒸溜所 | SHIRAMINE DISTILLERY</title>
     <style>
-        /* CSS Variables for Theme */
+        /* === 共通設定 === */
         :root {
-            --primary-dark: #385a37; /* ★爽やかなゴルフ場グリーンに変更 */
-            --primary-light: #4c734b; /* メインに合わせて少し明るめのグリーン */
-            --accent-gold: #b89742;  /* 上品なゴールド */
-            --bg-color: #faf9f5;     /* 温かみのあるオフホワイト */
-            --text-main: #333333;
-            --line-green: #06C755;
-            --white: #ffffff;
+            --color-bg: #FAFAFA; /* 白に近い淡いグレー */
+            --color-text: #333333;
+            --color-accent: #2C4C3B; /* 深いグリーン */
+            --color-water: #0075C2; /* ラベルのようなブルー */
+            /* キビキビとしたシャープなイージング */
+            --easing-sharp: cubic-bezier(0.19, 1, 0.22, 1); 
         }
 
-        /* Reset & Base */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Noto Sans JP', sans-serif;
-            color: var(--text-main);
-            background-color: var(--bg-color);
-            line-height: 1.6;
-        }
-        
-        h1, h2, h3 {
-            font-family: 'Noto Sans JP', sans-serif;
-            color: var(--primary-dark);
-            letter-spacing: 0.06em;
-        }
-        a { text-decoration: none; }
-        img { max-width: 100%; height: auto; display: block; }
-        
-        /* Layout */
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        section { padding: 80px 0; }
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 50px;
-            position: relative;
-        }
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 3px;
-            background-color: var(--accent-gold);
-            margin: 15px auto 0;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* Header & CTA */
-        header {
-            background-color: var(--white);
-            padding: 14px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
         }
-        .header-inner {
+
+        /* プレースホルダー（後から画像を入れる枠） */
+        .placeholder {
+            background-color: #E0E0E0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            width: 100%;
+        }
+
+        /* === タイポグラフィ === */
+        .en-title {
+            font-size: 5vw;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            line-height: 1;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        
+        .ja-subtitle {
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            margin-top: 1rem;
+            font-weight: normal;
+        }
+
+        .section-padding {
+            padding: 15vh 10vw;
+        }
+
+        /* === アニメーション設定（キビキビした動き） === */
+        /* マスク（クリップパス）でスパッと現れる設定 */
+        .reveal-mask {
+            clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+            transition: clip-path 1.2s var(--easing-sharp);
+        }
+        .reveal-mask.is-active {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        /* 下からシャープにスライドイン */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s var(--easing-sharp), transform 1s var(--easing-sharp);
+        }
+        .reveal-up.is-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 遅延用クラス */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* === 各セクションのスタイル === */
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            box-sizing: border-box;
+            z-index: 100;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            mix-blend-mode: difference; /* 背景色によって色が反転するスタイリッシュな手法 */
+            color: #fff;
         }
-        .logo { font-weight: 700; color: var(--primary-dark); font-size: 1.1rem; letter-spacing: 0.08em; }
-        .btn-line {
-            background-color: var(--line-green);
-            color: var(--white);
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(6, 199, 85, 0.2);
-            transition: transform 0.2s, background-color 0.2s;
+        .logo img {
+            height: 40px;
+            /* 背景透過ロゴを白く見せるためのフィルタ（ブレンドモードと併用） */
+            filter: brightness(0) invert(1);
         }
-        .btn-line:hover { transform: translateY(-2px); background-color: #05b34c; }
-
-        /* First View (FV) - 背景を爽やかなグリーンマスクに変更 */
-        .fv {
-            background: linear-gradient(rgba(56, 90, 55, 0.85), rgba(56, 90, 55, 0.85)), url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&q=80&w=1600') center/cover;
-            color: var(--white);
-            text-align: center;
-            padding: 120px 20px;
-        }
-        .fv h1 {
-            color: var(--white);
-            font-size: 2.8rem;
-            font-weight: 900; 
-            line-height: 1.4;
-            margin-bottom: 24px;
-            letter-spacing: 0.04em;
-        }
-        .fv p.lead { font-size: 1.25rem; font-weight: 500; margin-bottom: 40px; color: #dfd7c2; }
-        .fv .info-box {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(184, 151, 66, 0.5);
-            padding: 20px 40px;
-            border-radius: 8px;
-            display: inline-block;
-            margin-bottom: 40px;
-        }
-        .fv .info-box p { font-weight: 500; margin: 4px 0; }
-
-        /* Concept (Intro) */
-        .intro { background-color: var(--white); text-align: center; }
-        .intro p { font-size: 1.05rem; margin-bottom: 20px; color: #444; }
-
-        /* Reasons */
-        .reasons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        .reason-card {
-            background: var(--white);
-            padding: 40px 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-            text-align: center;
-            border-top: 4px solid var(--primary-light);
-        }
-        .reason-card h3 { color: var(--accent-gold); margin-bottom: 15px; font-size: 1.25rem; font-weight: 700; }
-        .reason-card p { font-size: 0.95rem; color: #555; text-align: left; }
-
-        /* Instructors */
-        .instructor-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        .instructor-card {
-            background: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
-        }
-        .instructor-img { width: 100%; height: 260px; object-fit: cover; }
-        .instructor-info { padding: 25px; }
-        .instructor-info h3 { margin-bottom: 8px; font-size: 1.3rem; font-weight: 700; }
-        .instructor-info .role { color: var(--accent-gold); font-weight: 700; font-size: 0.85rem; margin-bottom: 12px; letter-spacing: 0.05em; }
-        .instructor-info p { font-size: 0.9rem; color: #555; }
-
-        /* Info Table */
-        .info-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.04); }
-        .info-table th, .info-table td { padding: 20px; border-bottom: 1px solid #eee; text-align: left; }
-        .info-table th { background-color: var(--primary-dark); color: var(--white); width: 25%; font-weight: 700; font-size: 1rem; }
-        .info-table td { font-size: 1rem; }
-        
-        /* FAQ (Accordion) */
-        .faq-item {
-            background: var(--white);
-            margin-bottom: 12px;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.02);
-            overflow: hidden;
-        }
-        .faq-item summary {
-            padding: 20px;
-            font-weight: 700;
-            color: var(--primary-dark);
-            cursor: pointer;
+        nav ul {
             list-style: none;
+            display: flex;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* ファーストビュー */
+        .hero {
+            height: 100vh;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .faq-item summary::-webkit-details-marker { display: none; }
-        .faq-item summary::after {
-            content: '+';
+        .hero .placeholder {
             position: absolute;
-            right: 20px;
-            color: var(--accent-gold);
-            font-size: 1.3rem;
-            font-weight: 400;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background-color: #D6D6D6;
         }
-        .faq-item[open] summary::after { content: '-'; }
-        .faq-item p { padding: 0 20px 20px; color: #555; font-size: 0.95rem; }
-
-        /* スマホ専用 下部固定フローティングボタン */
-        .floating-cta {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 40px);
-            max-width: 400px;
-            z-index: 200;
-            display: none;
+        .hero-copy {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            text-align: center;
+            mix-blend-mode: difference;
+        }
+        .hero-copy h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            line-height: 1.8;
+            margin: 0;
         }
 
-        /* Footer */
-        footer { background-color: var(--primary-dark); color: var(--white); text-align: center; padding: 50px 20px; font-size: 0.85rem; }
-        .footer-logos { margin-bottom: 25px; font-size: 0.8rem; color: #d1ded0; line-height: 1.8; }
+        /* ABOUT */
+        .about-wrap {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .about-wrap p {
+            line-height: 2;
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+        }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            body { padding-bottom: 80px; }
-            header { position: static; padding: 16px 0; }
-            .header-inner { justify-content: center; }
-            .header-inner .btn-line { display: none; }
-            .fv { padding: 80px 20px; }
-            .fv h1 { font-size: 1.8rem; line-height: 1.5; }
-            .fv p.lead { font-size: 1rem; margin-bottom: 30px; }
-            .fv .info-box { padding: 15px 20px; }
-            
-            .info-table th, .info-table td { display: block; width: 100%; }
-            .info-table th { background-color: var(--primary-light); padding: 12px 20px; }
-            
-            .floating-cta { display: block; }
+        /* JIGE */
+        .jige-section {
+            background-color: #111;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .jige-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+        }
+        .jige-text {
+            width: 50%;
+        }
+        .jige-title {
+            font-size: 8vw; /* 大胆なタイポグラフィ */
+            margin-bottom: 2rem;
+        }
+        .jige-image {
+            width: 50%;
+            height: 60vh;
+        }
+
+        /* SHIRAMINE & BOTANICAL (枠のみのリスト) */
+        .grid-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        .grid-item .placeholder {
+            aspect-ratio: 1 / 1;
+            margin-bottom: 1rem;
+        }
+        .grid-item h3 {
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* PRODUCT */
+        .product-section {
+            background-color: #fff;
+        }
+        .product-grid {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5vw;
+        }
+        .product-images {
+            display: flex;
+            gap: 2rem;
+            width: 60%;
+        }
+        .product-images img {
+            width: 100%;
+            /* 背景の白を飛ばして馴染ませる */
+            mix-blend-mode: multiply; 
+        }
+        .product-text {
+            width: 35%;
+        }
+
+        /* DISTILLERY */
+        .distillery-image {
+            width: 100%;
+            height: 70vh;
+            margin-top: 4rem;
+        }
+
+        /* 共通フッター */
+        footer {
+            padding: 4rem;
+            text-align: center;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            background-color: #f0f0f0;
         }
     </style>
 </head>
 <body>
 
-    <!-- ヘッダー -->
     <header>
-        <div class="container header-inner">
-            <div class="logo">JUNIOR GOLF CLINIC 2026</div>
-            <a href="#" class="btn-line">LINEでエントリー</a>
+        <div class="logo">
+            <img src="背景透過 ロゴと文字 左右 グレー.png" alt="白峰蒸溜所">
         </div>
+        <nav>
+            <ul>
+                <li>ABOUT</li>
+                <li>JIGE</li>
+                <li>SHIRAMINE</li>
+                <li>PRODUCT</li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- ファーストビュー（新メインカラー ✕ ゴルフ場背景） -->
-    <section class="fv">
-        <div class="container">
-            <h1>最高の夏、<br class="md:hidden">憧れのプロが君のコーチになる！</h1>
-            <p class="lead">打つ、鍛える、極める。ゴルフのすべてがもっと好きになる特別な2日間。</p>
-            <div class="info-box">
-                <p>2026年8月20日(木)・21日(金) in ツインフィールズ</p>
-                <p>対象：小学3年生〜高校生（初心者から上級者まで）</p>
-            </div><br>
-            <a href="#" class="btn-line" style="font-size: 1.1rem; padding: 14px 40px;">LINE公式アカウントで申し込む</a>
-            <p style="margin-top: 15px; font-size: 0.85rem; opacity: 0.8;">※定員30名に達し次第締め切ります（申込締切：7/31）</p>
-        </div>
-    </section>
+    <main>
+        <!-- 02 | TOPページ（ファーストビュー） -->
+        <section class="hero">
+            <!-- 後で白峰の美しい風景写真をここに入れます -->
+            <div class="placeholder reveal-mask" style="height: 100vh;">
+                [ここに白峰の風景写真を大きく配置します]
+            </div>
+            <div class="hero-copy reveal-up delay-1">
+                <h1>白峰を知る。<br>白峰から生まれるものを知る。</h1>
+            </div>
+        </section>
 
-    <!-- 導入文 -->
-    <section class="intro">
-        <div class="container">
-            <h2 class="section-title">「もっと上手くなりたい」その気持ちを応援します</h2>
-            <p>ただボールを打つだけがゴルフの練習ではありません。</p>
-            <p>本クリニックは、現役プロによる「技術」の指導はもちろん、専門トレーナーによる「体づくり」、<br>管理栄養士による「食事」、そして「用具」の知識まで、ゴルフという競技を多面的に理解する全く新しい学習プログラムです。</p>
-            <p>実力に合わせた少人数制で、初めて参加するお子さまでも安心して楽しく成長できます。</p>
-        </div>
-    </section>
+        <!-- 03 | ABOUT -->
+        <section class="section-padding">
+            <div class="about-wrap reveal-up">
+                <h2 class="en-title">ABOUT</h2>
+                <h3 class="ja-subtitle">まずは、「おいしい」から。</h3>
+                <br><br>
+                <p>白峰蒸溜所は、造り手のこだわりを押し付けるのではなく、<br>飲み手の感動を基準に酒を造ることを大切にしています。</p>
+                <p>自分が飲み手だったら、何を飲みたいか。<br>その問いから、この蒸溜所は始まりました。</p>
+                <p>飲み手に一番近い蒸溜所へ。</p>
+            </div>
+        </section>
 
-    <!-- 4つの理由 -->
-    <section class="container">
-        <h2 class="section-title">選ばれる4つの理由</h2>
-        <div class="reasons-grid">
-            <div class="reason-card">
-                <h3>1. 現役プロの技術指導</h3>
-                <p>プロ1名に対し子ども10名の少人数制。パッティング、アプローチなどそれぞれの苦手分野を的確にアドバイスします。</p>
-            </div>
-            <div class="reason-card">
-                <h3>2. ゴルフに効く体づくり</h3>
-                <p>NESTAトレーナー直伝。怪我をしない、正しい柔軟性や自重トレーニングをプロと一緒に実践します。</p>
-            </div>
-            <div class="reason-card">
-                <h3>3. 実践的な栄養指導</h3>
-                <p>成長期に必要な食事や水分補給の知識を学び、お昼ごはんで実際にプロと同席しながら実践します。</p>
-            </div>
-            <div class="reason-card">
-                <h3>4. 用具学習＆トークショー</h3>
-                <p>道具を大切にする心を育む製造工程の学習。最終日にはプロとのトークショーで高い目標を胸に刻みます。</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- プロ紹介 -->
-    <section class="intro" style="background-color: var(--bg-color);">
-        <div class="container">
-            <h2 class="section-title">豪華プロフェッショナル陣</h2>
-            <div class="instructor-grid">
-                <div class="instructor-card">
-                    <img src="https://placehold.co/400x400/eeeeee/333333?text=Nishizawa+Pro" alt="西澤 歩未 プロ" class="instructor-img">
-                    <div class="instructor-info">
-                        <div class="role">担当：パッティング</div>
-                        <h3>西澤 歩未</h3>
-                        <p>グリーン周りの技術と繊細なタッチに定評。高校2年生で日本女子オープン出場。</p>
-                    </div>
+        <!-- 04 | JIGE -->
+        <section class="section-padding jige-section">
+            <div class="jige-content">
+                <div class="jige-text reveal-up">
+                    <h2 class="en-title jige-title">JIGE</h2>
+                    <p>自分たちの地域を、白峰では「ジゲ」と呼ぶ。</p>
+                    <p>この土地を大切にしてきた人々の感覚が、<br>このひとつの言葉に込められています。</p>
+                    <p>“Locals call this ‘JIGE GIN’.”</p>
                 </div>
-                <div class="instructor-card">
-                    <img src="https://placehold.co/400x400/eeeeee/333333?text=Staiano+Pro" alt="スタイヤーノ 梨々菜 プロ" class="instructor-img">
-                    <div class="instructor-info">
-                        <div class="role">担当：チッピング/アプローチ</div>
-                        <h3>スタイヤーノ 梨々菜</h3>
-                        <p>兵庫県神戸市出身。日伊のルーツ。ステップ・アップ・ツアーで完全優勝の実績。</p>
-                    </div>
-                </div>
-                <div class="instructor-card">
-                    <img src="https://placehold.co/400x400/eeeeee/333333?text=Fukaya+Pro" alt="深谷 琴乃 プロ" class="instructor-img">
-                    <div class="instructor-info">
-                        <div class="role">担当：ドライバー・アイアン</div>
-                        <h3>深谷 琴乃</h3>
-                        <p>オーストラリアで活躍し、米国エプソンツアーにも参戦する世界基準のトーナメントプロ。</p>
-                    </div>
+                <!-- 後で白峰の人々や文化を感じる写真をここに入れます -->
+                <div class="placeholder jige-image reveal-mask delay-1">
+                    [ここにジゲ（地域）の文化を感じる写真を配置]
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 開催概要 -->
-    <section class="container">
-        <h2 class="section-title">開催概要</h2>
-        <table class="info-table">
-            <tr>
-                <th>日時</th>
-                <td>2026年8月20日(木)・21日(金)<br>両日ともに 受付8:30 / 開始9:00〜17:00</td>
-            </tr>
-            <tr>
-                <th>会場</th>
-                <td>ゴルフクラブ ツインフィールズ（練習場・パッティング施設）</td>
-            </tr>
-            <tr>
-                <th>対象</th>
-                <td>小学3年生から高校生までのジュニアゴルファー<br>※初心者・中級者・上級者対応（レベル別3グループ）</td>
-            </tr>
-            <tr>
-                <th>定員</th>
-                <td>30名</td>
-            </tr>
-            <tr>
-                <th>参加費</th>
-                <td>お1人様 10,000円（両日の昼食付き）</td>
-            </tr>
-        </table>
-    </section>
+        <!-- 08 | PRODUCT -->
+        <section class="section-padding product-section">
+            <div class="product-grid">
+                <div class="product-images">
+                    <!-- 提供いただいた商品写真 -->
+                    <div class="reveal-mask" style="width: 50%;">
+                        <img src="DSC_4311.jpg" alt="GOZEN CRAFT GIN ボトル">
+                    </div>
+                    <!-- 提供いただいたグラス写真 -->
+                    <div class="reveal-mask delay-2" style="width: 50%; padding-top: 10%;">
+                        <img src="DSC_4326.jpg" alt="ジントニック グラス">
+                    </div>
+                </div>
+                <div class="product-text reveal-up delay-3">
+                    <h2 class="en-title">GOZEN</h2>
+                    <h3 class="ja-subtitle">白峰から生まれたもの。</h3>
+                    <br>
+                    <p>SMALL BATCH CRAFT GIN</p>
+                    <p style="font-size: 0.85rem; line-height: 1.8; margin-top: 2rem;">
+                        単なるスペックではなく、この土地から生まれた理由をここに。<br>
+                        ラベルに描かれた等高線のような模様は、<br>
+                        白峰の自然とジオパークの力強さを表現しています。
+                    </p>
+                </div>
+            </div>
+        </section>
 
-    <!-- FAQ -->
-    <section class="intro" style="background-color: var(--bg-color);">
-        <div class="container">
-            <h2 class="section-title">よくある質問</h2>
-            <details class="faq-item">
-                <summary>Q. 初心者でラウンド経験がなくても参加できますか？</summary>
-                <p>A. はい、大歓迎です。レベル別に3つのグループに分かれて指導するため、初心者のお子さまでも安心して基礎から学べます。</p>
-            </details>
-            <details class="faq-item">
-                <summary>Q. 1人で参加させるのが不安です。</summary>
-                <p>A. 少人数制（1グループ10名）で各プロとトレーナーが常駐してサポートします。すぐにゴルフ仲間ができる環境ですのでご安心ください。</p>
-            </details>
-            <details class="faq-item">
-                <summary>Q. 昼食は用意する必要がありますか？</summary>
-                <p>A. 両日とも参加費に昼食が含まれております。管理栄養士の指導のもと、プロと一緒に食事をしながら楽しく栄養について学びます。</p>
-            </details>
-        </div>
-    </section>
+        <!-- 05 | SHIRAMINE & 06 | BOTANICAL (枠のデモンストレーション) -->
+        <section class="section-padding">
+            <div class="reveal-up">
+                <h2 class="en-title">SHIRAMINE</h2>
+                <h3 class="ja-subtitle">ここにしかない理由。</h3>
+            </div>
+            
+            <div class="grid-list">
+                <!-- 後で各要素の写真を入れます -->
+                <div class="grid-item reveal-up delay-1">
+                    <div class="placeholder">[雪の写真]</div>
+                    <h3>SNOW - 雪</h3>
+                </div>
+                <div class="grid-item reveal-up delay-2">
+                    <div class="placeholder">[水の写真]</div>
+                    <h3>WATER - 水</h3>
+                </div>
+                <div class="grid-item reveal-up delay-3">
+                    <div class="placeholder">[植物/クロモジ等の写真]</div>
+                    <h3>BOTANICAL - 植物</h3>
+                </div>
+            </div>
+        </section>
 
-    <!-- ボトムCTA -->
-    <section class="fv" style="background: var(--primary-dark); padding: 80px 20px;">
-        <div class="container">
-            <h2 style="color: var(--white); font-size: 2rem; margin-bottom: 20px; font-weight: 700;">未来のチャンピオンは、ここから始まる。</h2>
-            <p style="margin-bottom: 40px; color: #dfd7c2;">特別な夏の思い出と成長の機会を、ぜひお見逃しなく！</p>
-            <a href="#" class="btn-line" style="font-size: 1.1rem; padding: 14px 40px;">LINE公式アカウントで申し込む</a>
-        </div>
-    </section>
+        <!-- 07 | DISTILLERY -->
+        <section class="section-padding" style="background-color: var(--color-bg);">
+            <div class="about-wrap reveal-up">
+                <h2 class="en-title">DISTILLERY</h2>
+                <h3 class="ja-subtitle">100年以上の古民家から。</h3>
+                <p style="margin-top: 2rem;">100年以上生きてきた建物の歴史や空気も、<br>素材のひとつとして酒に溶け込ませたい。</p>
+            </div>
+            <!-- 後で古民家や蒸留器の写真を入れます -->
+            <div class="placeholder distillery-image reveal-mask delay-1">
+                [ここに古民家の外観や蒸留器の横長写真を大きく配置]
+            </div>
+        </section>
 
-    <!-- フッター -->
+    </main>
+
     <footer>
-        <div class="footer-logos">
-            [主催] 株式会社香輪社 [共催] 全米エクササイズ＆スポーツトレーナー協会 (NESTA JAPAN)<br>
-            [運営協力] ゴルフクラブ ツインフィールズ [特別協力] 加賀電子株式会社
-        </div>
-        <p>&copy; 2026 JUNIOR GOLF CLINIC in TWIN FIELDS.</p>
+        <p>&copy; SHIRAMINE DISTILLERY. All Rights Reserved.</p>
     </footer>
 
-    <!-- スマホ専用 下部固定フローティングボタン -->
-    <div class="floating-cta">
-        <a href="#" class="btn-line" style="width: 100%; justify-content: center; box-shadow: 0 4px 20px rgba(6, 199, 85, 0.4); padding: 14px; font-size: 1.05rem;">
-            LINE公式アカウントで申し込む
-        </a>
-    </div>
+    <!-- スクロールアニメーションを制御するJavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // アニメーションさせたい要素をすべて取得（reveal-mask と reveal-up）
+            const revealElements = document.querySelectorAll('.reveal-mask, .reveal-up');
 
+            // Intersection Observerの設定
+            const observerOptions = {
+                root: null, // ビューポートをルートとする
+                rootMargin: '0px 0px -10% 0px', // 画面の下から10%入ったところで発火
+                threshold: 0 // 少しでも見えたら発火
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    // 要素が画面内に入ったら
+                    if (entry.isIntersecting) {
+                        // is-activeクラスを付与してCSSアニメーションを開始
+                        entry.target.classList.add('is-active');
+                        // 一度発火したら監視を解除する（キビキビとした動きを一度だけ見せるため）
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // 各要素を監視対象に追加
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
 </body>
 </html>
