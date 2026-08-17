@@ -20,24 +20,24 @@
             font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            background-color: #000; /* 写真エリアの背景は黒にして没入感を高める */
         }
 
-        img {
+        img, video {
             max-width: 100%;
             height: auto;
             display: block;
         }
 
-        /* プレースホルダー（後から写真を入れる枠） */
-        /* ※写真が入ることを想定し、文字が目立つよう少し暗めのグレーにしています */
+        /* プレースホルダー（後から写真や動画を入れる枠） */
         .placeholder {
-            background-color: #333;
+            background-color: #1a1a1a;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #888;
-            font-size: 1rem;
-            letter-spacing: 0.1em;
+            color: #666;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
             width: 100%;
             height: 100%;
             position: absolute;
@@ -86,35 +86,57 @@
             filter: brightness(0) invert(1);
         }
 
-        /* === 写真で語るセクション (Story) === */
-        .photo-slide {
+        /* === スクロールインジケーター === */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            color: #fff;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            mix-blend-mode: difference;
+            opacity: 0.7;
+        }
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background-color: #fff;
+            margin-top: 8px;
+            /* スクロールを促す縦線のアニメーション */
+            animation: scrollDown 2s infinite cubic-bezier(0.19, 1, 0.22, 1);
+            transform-origin: top;
+        }
+        @keyframes scrollDown {
+            0% { transform: scaleY(0); opacity: 0; }
+            50% { transform: scaleY(1); opacity: 1; }
+            100% { transform: scaleY(0); opacity: 0; transform-origin: bottom; }
+        }
+
+        /* === 言葉なしで魅せるビジュアルセクション === */
+        .visual-sequence {
+            /* 連続するビジュアルの親要素 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .visual-slide {
             position: relative;
             width: 100vw;
-            height: 100vh; /* 画面いっぱいの高さ */
+            height: 100vh;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         
-        .photo-slide-inner {
+        .visual-slide-inner {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-        }
-
-        .slide-copy {
-            position: relative;
-            z-index: 10;
-            color: #fff;
-            font-size: 2vw;
-            font-weight: 300;
-            letter-spacing: 0.3em;
-            text-align: center;
-            mix-blend-mode: difference;
-            margin: 0;
         }
 
         /* === 商品紹介セクション (PRODUCT) === */
@@ -125,13 +147,15 @@
             align-items: center;
             justify-content: space-between;
             gap: 5vw;
+            position: relative;
+            z-index: 10;
         }
         
         .product-images {
             display: flex;
             gap: 2rem;
             width: 60%;
-            align-items: flex-end; /* 画像の下端を揃える */
+            align-items: flex-end;
         }
         
         .product-images .img-wrap {
@@ -140,11 +164,12 @@
 
         .product-images img {
             width: 100%;
-            mix-blend-mode: multiply; /* 白背景を透過させて馴染ませる */
+            mix-blend-mode: multiply;
         }
 
         .product-text {
             width: 35%;
+            color: #111;
         }
 
         .en-title {
@@ -177,43 +202,54 @@
         </div>
     </header>
 
+    <!-- 言葉がないため、ユーザーにスクロールを促すサイン -->
+    <div class="scroll-indicator">
+        SCROLL
+        <div class="scroll-line"></div>
+    </div>
+
     <main>
-        <!-- 写真で語るストーリーテリング -->
-        
-        <!-- 1枚目：ファーストビュー（風景） -->
-        <section class="photo-slide">
-            <div class="photo-slide-inner reveal-mask">
-                <div class="placeholder">[白峰の雄大な風景写真を全面に]</div>
-            </div>
-            <h2 class="slide-copy reveal-up delay-2">白峰から、生まれる。</h2>
-        </section>
+        <!-- 圧倒的なビジュアルだけで見せるシーケンス（4画面連続） -->
+        <div class="visual-sequence">
+            
+            <!-- 1画面目：白峰の風景（動画やドローン映像などを想定） -->
+            <section class="visual-slide">
+                <div class="visual-slide-inner reveal-mask is-active"> <!-- 最初から表示 -->
+                    <div class="placeholder">[1. 白峰の広大な風景・動画]</div>
+                </div>
+            </section>
 
-        <!-- 2枚目：自然素材（雪・水・植物） -->
-        <section class="photo-slide">
-            <div class="photo-slide-inner reveal-mask">
-                <div class="placeholder">[雪解け水や植物（クロモジなど）のクローズアップ写真]</div>
-            </div>
-            <h2 class="slide-copy reveal-up delay-2">雪、水、そして植物。</h2>
-        </section>
+            <!-- 2画面目：水や雪のシズル感 -->
+            <section class="visual-slide">
+                <div class="visual-slide-inner reveal-mask">
+                    <div class="placeholder">[2. 雪解け水や澄んだ川のクローズアップ]</div>
+                </div>
+            </section>
 
-        <!-- 3枚目：文化・歴史（古民家・JIGE） -->
-        <section class="photo-slide">
-            <div class="photo-slide-inner reveal-mask">
-                <div class="placeholder">[100年以上の古民家や、蒸留器の重厚な写真]</div>
-            </div>
-            <h2 class="slide-copy reveal-up delay-2">100年の時を刻む場所。</h2>
-        </section>
+            <!-- 3画面目：ボタニカル（植物）のディテール -->
+            <section class="visual-slide">
+                <div class="visual-slide-inner reveal-mask">
+                    <div class="placeholder">[3. クロモジや森の植物の美しい写真]</div>
+                </div>
+            </section>
 
-        <!-- 商品紹介への切り替え -->
-        
-        <!-- PRODUCT：GOZEN -->
+            <!-- 4画面目：歴史と人の営み -->
+            <section class="visual-slide">
+                <div class="visual-slide-inner reveal-mask">
+                    <div class="placeholder">[4. 100年以上の古民家や蒸留器の重厚な写真]</div>
+                </div>
+            </section>
+            
+        </div>
+
+        <!-- 視覚的カタルシスを経て、初めて商品とテキストが登場する -->
         <section class="product-section">
             <div class="product-images">
                 <!-- ボトル写真 -->
                 <div class="img-wrap reveal-mask delay-1" style="width: 55%;">
                     <img src="DSC_4311.jpg" alt="GOZEN CRAFT GIN ボトル">
                 </div>
-                <!-- グラス写真（少し小さめに、高さをずらして配置） -->
+                <!-- グラス写真 -->
                 <div class="img-wrap reveal-mask delay-2" style="width: 45%;">
                     <img src="DSC_4326.jpg" alt="ジントニック グラス">
                 </div>
@@ -237,11 +273,11 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const revealElements = document.querySelectorAll('.reveal-mask, .reveal-up');
+            const revealElements = document.querySelectorAll('.reveal-mask:not(.is-active), .reveal-up');
 
             const observerOptions = {
                 root: null,
-                rootMargin: '0px 0px -15% 0px', // 画面の下から15%入ったところで発火
+                rootMargin: '0px 0px -15% 0px',
                 threshold: 0
             };
 
@@ -257,6 +293,23 @@
             revealElements.forEach(el => {
                 observer.observe(el);
             });
+
+            // 白背景の商品セクションに入ったら、SCROLLサインを非表示にする処理
+            const productSection = document.querySelector('.product-section');
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            
+            const productObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        scrollIndicator.style.opacity = '0';
+                        scrollIndicator.style.transition = 'opacity 0.5s ease';
+                    } else {
+                        scrollIndicator.style.opacity = '0.7';
+                    }
+                });
+            }, { rootMargin: '0px', threshold: 0.2 });
+            
+            productObserver.observe(productSection);
         });
     </script>
 </body>
