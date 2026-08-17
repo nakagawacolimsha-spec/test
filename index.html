@@ -20,7 +20,7 @@
             font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            background-color: #000; /* 写真エリアの背景は黒にして没入感を高める */
+            background-color: #000;
         }
 
         img, video {
@@ -29,7 +29,11 @@
             display: block;
         }
 
-        /* プレースホルダー（後から写真や動画を入れる枠） */
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
         .placeholder {
             background-color: #1a1a1a;
             display: flex;
@@ -69,7 +73,7 @@
         .delay-2 { transition-delay: 0.3s; }
         .delay-3 { transition-delay: 0.5s; }
 
-        /* === ヘッダー === */
+        /* === ヘッダー＆ナビゲーション === */
         header {
             position: fixed;
             top: 0;
@@ -80,10 +84,66 @@
             z-index: 100;
             mix-blend-mode: difference;
             color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* 背景の透過などはお好みで調整可能 */
+            transition: background-color 0.5s ease;
         }
+
         .logo img {
             height: 35px;
             filter: brightness(0) invert(1);
+        }
+
+        /* ナビゲーションの初期状態（非表示） */
+        .global-nav {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.8s var(--easing-sharp);
+        }
+
+        /* 商品セクション到達後のナビゲーション状態（表示） */
+        header.nav-active .global-nav {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .global-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+        }
+
+        .global-nav li a {
+            position: relative;
+            padding: 0.5rem 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .global-nav li a:hover {
+            opacity: 0.6;
+        }
+
+        /* お問合せボタンのみ特別デザイン */
+        .btn-contact {
+            border: 1px solid #fff;
+            padding: 0.8rem 1.5rem !important;
+            border-radius: 50px; /* 丸みのあるボタン */
+            transition: all 0.3s ease;
+        }
+
+        .btn-contact:hover {
+            background-color: #fff;
+            color: #000;
+            opacity: 1 !important;
         }
 
         /* === スクロールインジケーター === */
@@ -100,14 +160,13 @@
             flex-direction: column;
             align-items: center;
             mix-blend-mode: difference;
-            opacity: 0.7;
+            transition: opacity 0.5s ease;
         }
         .scroll-line {
             width: 1px;
             height: 40px;
             background-color: #fff;
             margin-top: 8px;
-            /* スクロールを促す縦線のアニメーション */
             animation: scrollDown 2s infinite cubic-bezier(0.19, 1, 0.22, 1);
             transform-origin: top;
         }
@@ -117,9 +176,8 @@
             100% { transform: scaleY(0); opacity: 0; transform-origin: bottom; }
         }
 
-        /* === 言葉なしで魅せるビジュアルセクション === */
+        /* === ビジュアルセクション === */
         .visual-sequence {
-            /* 連続するビジュアルの親要素 */
             display: flex;
             flex-direction: column;
         }
@@ -139,7 +197,7 @@
             height: 100%;
         }
 
-        /* === 商品紹介セクション (PRODUCT) === */
+        /* === 商品紹介セクション === */
         .product-section {
             background-color: #FAFAFA;
             padding: 20vh 10vw;
@@ -192,64 +250,66 @@
             letter-spacing: 0.05em;
             color: #555;
         }
+
+        /* その他のコンテンツ用余白（テスト用） */
+        .dummy-section {
+            height: 100vh;
+            background-color: #fff;
+        }
     </style>
 </head>
 <body>
 
-    <header>
+    <header id="global-header">
         <div class="logo">
             <img src="背景透過 ロゴと文字 左右 グレー.png" alt="白峰蒸溜所">
         </div>
+        <!-- 追加したナビゲーション -->
+        <nav class="global-nav">
+            <ul>
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">CONCEPT</a></li>
+                <li><a href="#">PRODUCT</a></li>
+                <li><a href="#">NEWS</a></li>
+                <li><a href="#" class="btn-contact">CONTACT</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- 言葉がないため、ユーザーにスクロールを促すサイン -->
-    <div class="scroll-indicator">
+    <div class="scroll-indicator" id="scroll-indicator">
         SCROLL
         <div class="scroll-line"></div>
     </div>
 
     <main>
-        <!-- 圧倒的なビジュアルだけで見せるシーケンス（4画面連続） -->
         <div class="visual-sequence">
-            
-            <!-- 1画面目：白峰の風景（動画やドローン映像などを想定） -->
             <section class="visual-slide">
-                <div class="visual-slide-inner reveal-mask is-active"> <!-- 最初から表示 -->
+                <div class="visual-slide-inner reveal-mask is-active">
                     <div class="placeholder">[1. 白峰の広大な風景・動画]</div>
                 </div>
             </section>
-
-            <!-- 2画面目：水や雪のシズル感 -->
             <section class="visual-slide">
                 <div class="visual-slide-inner reveal-mask">
                     <div class="placeholder">[2. 雪解け水や澄んだ川のクローズアップ]</div>
                 </div>
             </section>
-
-            <!-- 3画面目：ボタニカル（植物）のディテール -->
             <section class="visual-slide">
                 <div class="visual-slide-inner reveal-mask">
                     <div class="placeholder">[3. クロモジや森の植物の美しい写真]</div>
                 </div>
             </section>
-
-            <!-- 4画面目：歴史と人の営み -->
             <section class="visual-slide">
                 <div class="visual-slide-inner reveal-mask">
                     <div class="placeholder">[4. 100年以上の古民家や蒸留器の重厚な写真]</div>
                 </div>
             </section>
-            
         </div>
 
-        <!-- 視覚的カタルシスを経て、初めて商品とテキストが登場する -->
-        <section class="product-section">
+        <section class="product-section" id="trigger-nav">
             <div class="product-images">
-                <!-- ボトル写真 -->
                 <div class="img-wrap reveal-mask delay-1" style="width: 55%;">
                     <img src="DSC_4311.jpg" alt="GOZEN CRAFT GIN ボトル">
                 </div>
-                <!-- グラス写真 -->
                 <div class="img-wrap reveal-mask delay-2" style="width: 45%;">
                     <img src="DSC_4326.jpg" alt="ジントニック グラス">
                 </div>
@@ -269,18 +329,19 @@
             </div>
         </section>
 
+        <!-- スクロール用のダミーセクション -->
+        <section class="dummy-section"></section>
     </main>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // アニメーションの監視
             const revealElements = document.querySelectorAll('.reveal-mask:not(.is-active), .reveal-up');
-
             const observerOptions = {
                 root: null,
                 rootMargin: '0px 0px -15% 0px',
                 threshold: 0
             };
-
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -289,27 +350,33 @@
                     }
                 });
             }, observerOptions);
+            revealElements.forEach(el => observer.observe(el));
 
-            revealElements.forEach(el => {
-                observer.observe(el);
-            });
 
-            // 白背景の商品セクションに入ったら、SCROLLサインを非表示にする処理
-            const productSection = document.querySelector('.product-section');
-            const scrollIndicator = document.querySelector('.scroll-indicator');
+            // 商品セクション到達時のナビゲーション表示＆SCROLL非表示の制御
+            const productSection = document.getElementById('trigger-nav');
+            const header = document.getElementById('global-header');
+            const scrollIndicator = document.getElementById('scroll-indicator');
             
-            const productObserver = new IntersectionObserver((entries) => {
+            const navObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
+                    // 商品セクションが画面内に見えたら
                     if (entry.isIntersecting) {
-                        scrollIndicator.style.opacity = '0';
-                        scrollIndicator.style.transition = 'opacity 0.5s ease';
+                        header.classList.add('nav-active'); // メニューを表示
+                        scrollIndicator.style.opacity = '0'; // SCROLLサインを隠す
                     } else {
-                        scrollIndicator.style.opacity = '0.7';
+                        // 画面上部にスクロールして戻った場合、メニューを消すなら以下の行を活かす。
+                        // ずっと表示させたままにしたい場合は以下の2行を削除してください。
+                        const rect = productSection.getBoundingClientRect();
+                        if(rect.top > window.innerHeight) {
+                            header.classList.remove('nav-active');
+                            scrollIndicator.style.opacity = '0.7';
+                        }
                     }
                 });
-            }, { rootMargin: '0px', threshold: 0.2 });
+            }, { rootMargin: '-20% 0px 0px 0px', threshold: 0 }); // 商品セクションが20%見えたら発火
             
-            productObserver.observe(productSection);
+            navObserver.observe(productSection);
         });
     </script>
 </body>
