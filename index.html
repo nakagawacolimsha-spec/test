@@ -1,383 +1,198 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>白峰蒸溜所 | SHIRAMINE DISTILLERY</title>
+    <title>Ayaka Poppy | Illustrator & Art Director</title>
+    <meta name="description" content="Ayaka Poppy - Illustrator & Art Director Portfolio">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
-        /* === 共通設定 === */
         :root {
-            --color-bg: #FFFFFF;
-            --color-text: #111111;
-            --easing-sharp: cubic-bezier(0.19, 1, 0.22, 1); 
+            --text-color: #333333;
+            --bg-color: #ffffff;
         }
-
         body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--color-bg);
-            color: var(--color-text);
-            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            font-family: 'Noto Serif JP', serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-            background-color: #000;
+            -moz-osx-font-smoothing: grayscale;
         }
-
-        img, video {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .placeholder {
-            background-color: #1a1a1a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            font-size: 0.9rem;
-            letter-spacing: 0.2em;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            object-fit: cover;
-        }
-
-        /* === アニメーション設定 === */
-        .reveal-mask {
-            clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-            transition: clip-path 1.2s var(--easing-sharp);
-        }
-        .reveal-mask.is-active {
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-        }
-
-        .reveal-up {
+        
+        /* Fade-in Animation Classes */
+        .fade-in {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s var(--easing-sharp), transform 1s var(--easing-sharp);
+            transform: translateY(20px);
+            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        .reveal-up.is-active {
+        .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.3s; }
-        .delay-3 { transition-delay: 0.5s; }
-
-        /* === ヘッダー＆ナビゲーション === */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 2rem 4rem;
-            box-sizing: border-box;
-            z-index: 100;
-            mix-blend-mode: difference;
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            /* 背景の透過などはお好みで調整可能 */
-            transition: background-color 0.5s ease;
+        /* Initial Page Load Fade */
+        .page-load-fade {
+            animation: pageFadeIn 1.5s ease-out forwards;
+        }
+        @keyframes pageFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .logo img {
-            height: 35px;
-            filter: brightness(0) invert(1);
-        }
-
-        /* ナビゲーションの初期状態（非表示） */
-        .global-nav {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.8s var(--easing-sharp);
-        }
-
-        /* 商品セクション到達後のナビゲーション状態（表示） */
-        header.nav-active .global-nav {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .global-nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2.5rem;
-            margin: 0;
-            padding: 0;
-            align-items: center;
-            font-size: 0.75rem;
-            letter-spacing: 0.15em;
-        }
-
-        .global-nav li a {
+        /* Navigation link underline effect */
+        .nav-link {
             position: relative;
-            padding: 0.5rem 0;
-            transition: opacity 0.3s ease;
+            display: inline-block;
         }
-
-        .global-nav li a:hover {
-            opacity: 0.6;
-        }
-
-        /* お問合せボタンのみ特別デザイン */
-        .btn-contact {
-            border: 1px solid #fff;
-            padding: 0.8rem 1.5rem !important;
-            border-radius: 50px; /* 丸みのあるボタン */
-            transition: all 0.3s ease;
-        }
-
-        .btn-contact:hover {
-            background-color: #fff;
-            color: #000;
-            opacity: 1 !important;
-        }
-
-        /* === スクロールインジケーター === */
-        .scroll-indicator {
-            position: fixed;
-            bottom: 2rem;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
             left: 50%;
+            background-color: var(--text-color);
+            transition: all 0.3s ease;
             transform: translateX(-50%);
-            z-index: 100;
-            color: #fff;
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            mix-blend-mode: difference;
-            transition: opacity 0.5s ease;
         }
-        .scroll-line {
-            width: 1px;
-            height: 40px;
-            background-color: #fff;
-            margin-top: 8px;
-            animation: scrollDown 2s infinite cubic-bezier(0.19, 1, 0.22, 1);
-            transform-origin: top;
-        }
-        @keyframes scrollDown {
-            0% { transform: scaleY(0); opacity: 0; }
-            50% { transform: scaleY(1); opacity: 1; }
-            100% { transform: scaleY(0); opacity: 0; transform-origin: bottom; }
-        }
-
-        /* === ビジュアルセクション === */
-        .visual-sequence {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .visual-slide {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-        }
-        
-        .visual-slide-inner {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .nav-link:hover::after {
             width: 100%;
-            height: 100%;
-        }
-
-        /* === 商品紹介セクション === */
-        .product-section {
-            background-color: #FAFAFA;
-            padding: 20vh 10vw;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 5vw;
-            position: relative;
-            z-index: 10;
-        }
-        
-        .product-images {
-            display: flex;
-            gap: 2rem;
-            width: 60%;
-            align-items: flex-end;
-        }
-        
-        .product-images .img-wrap {
-            position: relative;
-        }
-
-        .product-images img {
-            width: 100%;
-            mix-blend-mode: multiply;
-        }
-
-        .product-text {
-            width: 35%;
-            color: #111;
-        }
-
-        .en-title {
-            font-size: 4vw;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            margin: 0 0 1rem 0;
-        }
-        
-        .ja-subtitle {
-            font-size: 1rem;
-            letter-spacing: 0.1em;
-            margin: 0 0 2rem 0;
-            font-weight: normal;
-        }
-
-        .product-desc {
-            font-size: 0.85rem;
-            line-height: 2;
-            letter-spacing: 0.05em;
-            color: #555;
-        }
-
-        /* その他のコンテンツ用余白（テスト用） */
-        .dummy-section {
-            height: 100vh;
-            background-color: #fff;
         }
     </style>
 </head>
-<body>
+<body class="page-load-fade text-gray-800 bg-white selection:bg-gray-200">
 
-    <header id="global-header">
-        <div class="logo">
-            <img src="背景透過 ロゴと文字 左右 グレー.png" alt="白峰蒸溜所">
-        </div>
-        <!-- 追加したナビゲーション -->
-        <nav class="global-nav">
-            <ul>
-                <li><a href="#">HOME</a></li>
-                <li><a href="#">CONCEPT</a></li>
-                <li><a href="#">PRODUCT</a></li>
-                <li><a href="#">NEWS</a></li>
-                <li><a href="#" class="btn-contact">CONTACT</a></li>
+    <header class="w-full pt-20 pb-12 px-6 flex flex-col items-center z-10 fade-in">
+        <a href="#" class="text-center group block">
+            <h1 class="text-3xl md:text-4xl tracking-[0.2em] font-light mb-3 text-gray-900 group-hover:opacity-70 transition-opacity duration-300">
+                Ayaka Poppy
+            </h1>
+            <p class="text-xs md:text-sm tracking-widest text-gray-500 uppercase">
+                Illustrator & Art Director
+            </p>
+        </a>
+        
+        <nav class="mt-12">
+            <ul class="flex space-x-8 md:space-x-12 text-xs md:text-sm tracking-[0.15em] uppercase">
+                <li><a href="#works" class="nav-link text-gray-600 hover:text-gray-900 transition-colors">Works</a></li>
+                <li><a href="#about" class="nav-link text-gray-600 hover:text-gray-900 transition-colors">About</a></li>
+                <li><a href="#contact" class="nav-link text-gray-600 hover:text-gray-900 transition-colors">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="scroll-indicator" id="scroll-indicator">
-        SCROLL
-        <div class="scroll-line"></div>
-    </div>
-
     <main>
-        <div class="visual-sequence">
-            <section class="visual-slide">
-                <div class="visual-slide-inner reveal-mask is-active">
-                    <div class="placeholder">[1. 白峰の広大な風景・動画]</div>
-                </div>
-            </section>
-            <section class="visual-slide">
-                <div class="visual-slide-inner reveal-mask">
-                    <div class="placeholder">[2. 雪解け水や澄んだ川のクローズアップ]</div>
-                </div>
-            </section>
-            <section class="visual-slide">
-                <div class="visual-slide-inner reveal-mask">
-                    <div class="placeholder">[3. クロモジや森の植物の美しい写真]</div>
-                </div>
-            </section>
-            <section class="visual-slide">
-                <div class="visual-slide-inner reveal-mask">
-                    <div class="placeholder">[4. 100年以上の古民家や蒸留器の重厚な写真]</div>
-                </div>
-            </section>
-        </div>
-
-        <section class="product-section" id="trigger-nav">
-            <div class="product-images">
-                <div class="img-wrap reveal-mask delay-1" style="width: 55%;">
-                    <img src="DSC_4311.jpg" alt="GOZEN CRAFT GIN ボトル">
-                </div>
-                <div class="img-wrap reveal-mask delay-2" style="width: 45%;">
-                    <img src="DSC_4326.jpg" alt="ジントニック グラス">
-                </div>
-            </div>
-            
-            <div class="product-text reveal-up delay-3">
-                <h2 class="en-title">GOZEN</h2>
-                <h3 class="ja-subtitle">白峰を飲む、クラフトジン。</h3>
-                <p class="product-desc">
-                    SMALL BATCH CRAFT GIN<br><br>
-                    造り手のこだわりではなく、<br>
-                    飲み手の感動を基準に。<br><br>
-                    ラベルに描かれた等高線は、<br>
-                    白峰の自然とジオパークの力強さ。<br>
-                    この土地の恵みを、一本のボトルに込めました。
-                </p>
+        <section id="hero" class="max-w-6xl mx-auto px-6 mb-24 md:mb-32 fade-in">
+            <div class="w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-gray-50">
+                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" 
+                     alt="Hero Image - Delicate aesthetic" 
+                     class="w-full h-full object-cover opacity-90 object-center">
             </div>
         </section>
 
-        <!-- スクロール用のダミーセクション -->
-        <section class="dummy-section"></section>
+        <section id="works" class="max-w-6xl mx-auto px-6 mb-32 scroll-mt-24">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+                
+                <!-- Work Item 1 -->
+                <div class="group cursor-pointer fade-in">
+                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
+                        <img src="https://images.unsplash.com/photo-1579762715118-a6f1d4b934f1?auto=format&fit=crop&w=800&q=80" 
+                             alt="Artwork 1" 
+                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
+                    </div>
+                </div>
+
+                <!-- Work Item 2 -->
+                <div class="group cursor-pointer fade-in">
+                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
+                        <img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?auto=format&fit=crop&w=800&q=80" 
+                             alt="Artwork 2" 
+                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
+                    </div>
+                </div>
+
+                <!-- Work Item 3 -->
+                <div class="group cursor-pointer fade-in">
+                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
+                        <img src="https://images.unsplash.com/photo-1490750967868-88cb4ece70bb?auto=format&fit=crop&w=800&q=80" 
+                             alt="Artwork 3" 
+                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
+                    </div>
+                </div>
+
+                <!-- Work Item 4 -->
+                <div class="group cursor-pointer fade-in">
+                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
+                        <img src="https://images.unsplash.com/photo-1550684376-efcbd6e3f031?auto=format&fit=crop&w=800&q=80" 
+                             alt="Artwork 4" 
+                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
+                    </div>
+                </div>
+
+                <!-- Work Item 5 -->
+                <div class="group cursor-pointer fade-in">
+                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
+                        <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?auto=format&fit=crop&w=800&q=80" 
+                             alt="Artwork 5" 
+                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
+                    </div>
+                </div>
+
+                <!-- Work Item 6 -->
+                <div class="group cursor-pointer fade-in">
+                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
+                        <img src="https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=800&q=80" 
+                             alt="Artwork 6" 
+                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="about" class="max-w-2xl mx-auto px-6 py-24 text-center border-t border-gray-100 fade-in scroll-mt-12">
+            <h2 class="text-xl tracking-widest mb-10 font-light">About</h2>
+            <div class="leading-loose text-sm md:text-base text-gray-700 space-y-6">
+                <p>
+                    Ayaka Poppy / Illustrator & Art Director
+                </p>
+                <p>
+                    優しいタッチのイラストレーションと、<br class="md:hidden">あたたかみのあるアートディレクションを手がけています。<br>
+                    日常のささやかな美しさを切り取ることを大切にしています。
+                </p>
+            </div>
+            
+            <div class="mt-12 flex justify-center">
+                <a href="https://www.instagram.com/ayaka_poppy/" target="_blank" rel="noopener noreferrer" 
+                   class="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                    <span class="text-sm tracking-widest">@ayaka_poppy</span>
+                </a>
+            </div>
+        </section>
     </main>
 
+    <footer id="contact" class="w-full py-16 text-center text-xs tracking-widest text-gray-400 bg-gray-50/50">
+        <div class="max-w-2xl mx-auto px-6 fade-in">
+            <p class="mb-6 text-gray-500">
+                お仕事のご依頼やご相談は、<br class="sm:hidden">下記メールアドレスまでお願いいたします。
+            </p>
+            <a href="mailto:hello@example.com" class="text-sm text-gray-700 hover:text-black transition-colors block mb-12 nav-link">
+                hello@example.com
+            </a>
+            <p>&copy; 2026 Ayaka Poppy. All Rights Reserved.</p>
+        </div>
+    </footer>
+
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // アニメーションの監視
-            const revealElements = document.querySelectorAll('.reveal-mask:not(.is-active), .reveal-up');
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px 0px -15% 0px',
-                threshold: 0
-            };
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-active');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-            revealElements.forEach(el => observer.observe(el));
-
-
-            // 商品セクション到達時のナビゲーション表示＆SCROLL非表示の制御
-            const productSection = document.getElementById('trigger-nav');
-            const header = document.getElementById('global-header');
-            const scrollIndicator = document.getElementById('scroll-indicator');
-            
-            const navObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    // 商品セクションが画面内に見えたら
-                    if (entry.isIntersecting) {
-                        header.classList.add('nav-active'); // メニューを表示
-                        scrollIndicator.style.opacity = '0'; // SCROLLサインを隠す
-                    } else {
-                        // 画面上部にスクロールして戻った場合、メニューを消すなら以下の行を活かす。
-                        // ずっと表示させたままにしたい場合は以下の2行を削除してください。
-                        const rect = productSection.getBoundingClientRect();
-                        if(rect.top > window.innerHeight) {
-                            header.classList.remove('nav-active');
-                            scrollIndicator.style.opacity = '0.7';
-                        }
-                    }
-                });
-            }, { rootMargin: '-20% 0px 0px 0px', threshold: 0 }); // 商品セクションが20%見えたら発火
-            
-            navObserver.observe(productSection);
-        });
-    </script>
-</body>
-</html>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Intersection Observer for fade-in animations on scroll
