@@ -4,37 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ayaka Nakagawa | Art Director & Illustrator</title>
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (デザインを整えるシステム) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
+    <!-- Google Fonts (明朝体のフォント) -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Serif JP', serif;
-            background-color: #fafafa;
-            color: #2c2c2c;
-        }
-        /* ふわっと浮かび上がるアニメーションの準備 */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
+            color: #333;
+            background-color: #fafafa; /* 真っ白ではなく、少し目に優しい色 */
         }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col">
+<body class="antialiased">
 
-    <!-- ヘッダー（サイトタイトル） -->
-    <header class="text-center pt-32 pb-24 fade-up">
-        <h1 class="text-3xl md:text-4xl tracking-[0.15em] mb-4">Ayaka Nakagawa</h1>
-        <p class="text-sm md:text-base text-gray-500 tracking-widest">Art Director / Illustrator</p>
+    <!-- ヘッダー（サイトのタイトル） -->
+    <header class="text-center py-20">
+        <h1 class="text-3xl tracking-widest mb-2">Ayaka Poppy</h1>
+        <p class="text-sm text-gray-500 tracking-widest">Art Director / Illustrator</p>
     </header>
 
-    <!-- メインコンテンツ（作品ギャラリー） -->
+    <!-- メインコンテンツ（作品一覧） -->
+    <main class="max-w-5xl mx-auto px-6 pb-20">
+        <!-- ギャラリーのグリッド（PCで3列、スマホで1列） -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            
+            <!-- 作品1 -->
+            <div class="group cursor-pointer">
+                <!-- ↓ ここの src="..." を自分の画像に書き換えます -->
+                <img src="https://images.unsplash.com/photo-1513364776144-60967e0f8fbf?w=500&q=80" alt="Work 1" class="w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-70">
+            </div>
+
+            <!-- 作品2 -->
+            <div class="group cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb?w=500&q=80" alt="Work 2" class="w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-70">
+            </div>
+
+            <!-- 作品3 -->
+            <div class="group cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=500&q=80" alt="Work 3" class="w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-70">
+            </div>
+
+        </div>
+    </main>
+
+    <!-- プロフィール＆Instagramリンク -->
+    <footer class="text-center py-20 border-t border-gray-200">
+        <p class="mb-6 text-gray-600">Follow my latest works</p>
+        <a href="https://www.instagram.com/ayaka_poppy/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-gray-800 hover:text-gray-500 transition-colors">
+            <!-- Instagramのアイコン -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            <span class="tracking-widest">@ayaka_poppy</span>
+        </a>
+    </footer>
+
+</body>
+</html>    <!-- メインコンテンツ（作品ギャラリー） -->
     <main class="flex-grow max-w-6xl mx-auto px-6 w-full pb-32">
         <!-- グリッドレイアウト（PC3列、スマホ1列、たっぷりの余白） -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16">
