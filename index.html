@@ -1,383 +1,107 @@
 <!DOCTYPE html>
-<html lang="ja" class="scroll-smooth">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ayaka Poppy | Illustrator & Art Director</title>
-    <meta name="description" content="Ayaka Poppy - Illustrator & Art Director Portfolio">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Ayaka Nakagawa | Art Director & Illustrator</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --text-color: #333333;
-            --bg-color: #ffffff;
-        }
         body {
             font-family: 'Noto Serif JP', serif;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            background-color: #fafafa;
+            color: #2c2c2c;
         }
-        
-        /* Fade-in Animation Classes */
-        .fade-in {
+        /* ふわっと浮かび上がるアニメーションの準備 */
+        .fade-up {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-        .fade-in.visible {
+        .fade-up.visible {
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Initial Page Load Fade */
-        .page-load-fade {
-            animation: pageFadeIn 1.5s ease-out forwards;
-        }
-        @keyframes pageFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Navigation link underline effect */
-        .nav-link {
-            position: relative;
-            display: inline-block;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -4px;
-            left: 50%;
-            background-color: var(--text-color);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
     </style>
 </head>
-<body class="page-load-fade text-gray-800 bg-white selection:bg-gray-200">
+<body class="antialiased min-h-screen flex flex-col">
 
-    <header class="w-full pt-20 pb-12 px-6 flex flex-col items-center z-10 fade-in">
-        <a href="#" class="text-center group block">
-            <h1 class="text-3xl md:text-4xl tracking-[0.2em] font-light mb-3 text-gray-900 group-hover:opacity-70 transition-opacity duration-300">
-                Ayaka Poppy
-            </h1>
-            <p class="text-xs md:text-sm tracking-widest text-gray-500 uppercase">
-                Illustrator & Art Director
-            </p>
-        </a>
-        
-        <nav class="mt-12">
-            <ul class="flex space-x-8 md:space-x-12 text-xs md:text-sm tracking-[0.15em] uppercase">
-                <li><a href="#works" class="nav-link text-gray-600 hover:text-gray-900 transition-colors">Works</a></li>
-                <li><a href="#about" class="nav-link text-gray-600 hover:text-gray-900 transition-colors">About</a></li>
-                <li><a href="#contact" class="nav-link text-gray-600 hover:text-gray-900 transition-colors">Contact</a></li>
-            </ul>
-        </nav>
+    <!-- ヘッダー（サイトタイトル） -->
+    <header class="text-center pt-32 pb-24 fade-up">
+        <h1 class="text-3xl md:text-4xl tracking-[0.15em] mb-4">Ayaka Nakagawa</h1>
+        <p class="text-sm md:text-base text-gray-500 tracking-widest">Art Director / Illustrator</p>
     </header>
 
-    <main>
-        <section id="hero" class="max-w-6xl mx-auto px-6 mb-24 md:mb-32 fade-in">
-            <div class="w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-gray-50">
-                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" 
-                     alt="Hero Image - Delicate aesthetic" 
-                     class="w-full h-full object-cover opacity-90 object-center">
-            </div>
-        </section>
-
-        <section id="works" class="max-w-6xl mx-auto px-6 mb-32 scroll-mt-24">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-                
-                <!-- Work Item 1 -->
-                <div class="group cursor-pointer fade-in">
-                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
-                        <img src="https://images.unsplash.com/photo-1579762715118-a6f1d4b934f1?auto=format&fit=crop&w=800&q=80" 
-                             alt="Artwork 1" 
-                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
-                    </div>
-                </div>
-
-                <!-- Work Item 2 -->
-                <div class="group cursor-pointer fade-in">
-                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
-                        <img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?auto=format&fit=crop&w=800&q=80" 
-                             alt="Artwork 2" 
-                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
-                    </div>
-                </div>
-
-                <!-- Work Item 3 -->
-                <div class="group cursor-pointer fade-in">
-                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
-                        <img src="https://images.unsplash.com/photo-1490750967868-88cb4ece70bb?auto=format&fit=crop&w=800&q=80" 
-                             alt="Artwork 3" 
-                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
-                    </div>
-                </div>
-
-                <!-- Work Item 4 -->
-                <div class="group cursor-pointer fade-in">
-                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
-                        <img src="https://images.unsplash.com/photo-1550684376-efcbd6e3f031?auto=format&fit=crop&w=800&q=80" 
-                             alt="Artwork 4" 
-                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
-                    </div>
-                </div>
-
-                <!-- Work Item 5 -->
-                <div class="group cursor-pointer fade-in">
-                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
-                        <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?auto=format&fit=crop&w=800&q=80" 
-                             alt="Artwork 5" 
-                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
-                    </div>
-                </div>
-
-                <!-- Work Item 6 -->
-                <div class="group cursor-pointer fade-in">
-                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
-                        <img src="https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=800&q=80" 
-                             alt="Artwork 6" 
-                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="about" class="max-w-2xl mx-auto px-6 py-24 text-center border-t border-gray-100 fade-in scroll-mt-12">
-            <h2 class="text-xl tracking-widest mb-10 font-light">About</h2>
-            <div class="leading-loose text-sm md:text-base text-gray-700 space-y-6">
-                <p>
-                    Ayaka Poppy / Illustrator & Art Director
-                </p>
-                <p>
-                    優しいタッチのイラストレーションと、<br class="md:hidden">あたたかみのあるアートディレクションを手がけています。<br>
-                    日常のささやかな美しさを切り取ることを大切にしています。
-                </p>
-            </div>
+    <!-- メインコンテンツ（作品ギャラリー） -->
+    <main class="flex-grow max-w-6xl mx-auto px-6 w-full pb-32">
+        <!-- グリッドレイアウト（PC3列、スマホ1列、たっぷりの余白） -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16">
             
-            <div class="mt-12 flex justify-center">
-                <a href="https://www.instagram.com/ayaka_poppy/" target="_blank" rel="noopener noreferrer" 
-                   class="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                    </svg>
-                    <span class="text-sm tracking-widest">@ayaka_poppy</span>
-                </a>
+            <!-- 作品1 -->
+            <div class="group cursor-pointer overflow-hidden fade-up">
+                <!-- ↓ ここの src="..." を自分の画像に書き換えます -->
+                <img src="https://images.unsplash.com/photo-1513364776144-60967e0f8fbf?w=800&q=80" alt="Work 1" class="w-full h-auto aspect-square object-cover transition-all duration-700 ease-in-out group-hover:scale-105 group-hover:opacity-80">
             </div>
-        </section>
+
+            <!-- 作品2 -->
+            <div class="group cursor-pointer overflow-hidden fade-up" style="transition-delay: 100ms;">
+                <img src="https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb?w=800&q=80" alt="Work 2" class="w-full h-auto aspect-square object-cover transition-all duration-700 ease-in-out group-hover:scale-105 group-hover:opacity-80">
+            </div>
+
+            <!-- 作品3 -->
+            <div class="group cursor-pointer overflow-hidden fade-up" style="transition-delay: 200ms;">
+                <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&q=80" alt="Work 3" class="w-full h-auto aspect-square object-cover transition-all duration-700 ease-in-out group-hover:scale-105 group-hover:opacity-80">
+            </div>
+
+            <!-- 作品4 -->
+            <div class="group cursor-pointer overflow-hidden fade-up" style="transition-delay: 0ms;">
+                <img src="https://images.unsplash.com/photo-1579762715111-a6e19fd1e464?w=800&q=80" alt="Work 4" class="w-full h-auto aspect-square object-cover transition-all duration-700 ease-in-out group-hover:scale-105 group-hover:opacity-80">
+            </div>
+
+            <!-- 作品5 -->
+            <div class="group cursor-pointer overflow-hidden fade-up" style="transition-delay: 100ms;">
+                <img src="https://images.unsplash.com/photo-1579783483458-83d02161294e?w=800&q=80" alt="Work 5" class="w-full h-auto aspect-square object-cover transition-all duration-700 ease-in-out group-hover:scale-105 group-hover:opacity-80">
+            </div>
+
+            <!-- 作品6 -->
+            <div class="group cursor-pointer overflow-hidden fade-up" style="transition-delay: 200ms;">
+                <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=800&q=80" alt="Work 6" class="w-full h-auto aspect-square object-cover transition-all duration-700 ease-in-out group-hover:scale-105 group-hover:opacity-80">
+            </div>
+
+        </div>
     </main>
 
-    <footer id="contact" class="w-full py-16 text-center text-xs tracking-widest text-gray-400 bg-gray-50/50">
-        <div class="max-w-2xl mx-auto px-6 fade-in">
-            <p class="mb-6 text-gray-500">
-                お仕事のご依頼やご相談は、<br class="sm:hidden">下記メールアドレスまでお願いいたします。
-            </p>
-            <a href="mailto:hello@example.com" class="text-sm text-gray-700 hover:text-black transition-colors block mb-12 nav-link">
-                hello@example.com
-            </a>
-            <p>&copy; 2026 Ayaka Poppy. All Rights Reserved.</p>
-        </div>
+    <!-- フッター（Instagramリンク） -->
+    <footer class="text-center py-24 fade-up">
+        <p class="mb-8 text-gray-400 text-sm tracking-widest uppercase">Follow on Instagram</p>
+        <a href="https://www.instagram.com/ayaka_poppy/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 text-gray-800 hover:text-gray-400 transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            <span class="tracking-widest text-sm">@ayaka_poppy</span>
+        </a>
     </footer>
 
+    <!-- スクロールした時にふわっと表示させるためのプログラム（JavaScript） -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Intersection Observer for fade-in animations on scroll
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15
-            };
-
+        document.addEventListener("DOMContentLoaded", () => {
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        // Optional: Stop observing once element has faded in
-                        // observer.unobserve(entry.target); 
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, observerOptions);
+            }, { root: null, rootMargin: '0px', threshold: 0.1 });
 
-            const fadeElements = document.querySelectorAll('.fade-in');
-            fadeElements.forEach(el => {
+            document.querySelectorAll('.fade-up').forEach(el => {
                 observer.observe(el);
             });
         });
     </script>
 </body>
 </html>
-        /* Initial Page Load Fade */
-        .page-load-fade {
-            animation: pageFadeIn 1.5s ease-out forwards;
-        }
-        @keyframes pageFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Navigation link underline effect */
-        .nav-link {
-            position: relative;
-            display: inline-block;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -4px;
-            left: 50%;
-            background-color: var(--text-color);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-    </style>
-</head>
-<body class="page-load-fade text-gray-800 bg-white selection:bg-gray-200">
-
-    <header class="w-full pt-20 pb-12 px-6 flex flex-col items-center z-10 fade-in">
-        <a href="#" class="text-center group block">
-            <h1 class="text-3xl md:text-4xl tracking-[0.2em] font-light mb-3 text-gray-900 group-hover:opacity-70 transition-opacity duration-300">
-                Ayaka Poppy
-            </h1>
-            <p class="text-xs md:text-sm tracking-widest text-gray-500 uppercase">
-                Illustrator & Art Director
-            </p>
-        </a>
-        
-        <nav class="mt-12">
-            <ul class="flex space-x-8 md:space-x-12 text-xs md:text-sm tracking-[0.15em] uppercase">
-                <li><a href="#works" class="nav-link text-gray-600 hover:text-gray-900 transition-colors">Works</a></li>
-                <li><a href="#about" class="nav-link text-gray-600 hover:text-gray-900 transition-colors">About</a></li>
-                <li><a href="#contact" class="nav-link text-gray-600 hover:text-gray-900 transition-colors">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section id="hero" class="max-w-6xl mx-auto px-6 mb-24 md:mb-32 fade-in">
-            <div class="w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-gray-50">
-                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" 
-                     alt="Hero Image - Delicate aesthetic" 
-                     class="w-full h-full object-cover opacity-90 object-center">
-            </div>
-        </section>
-
-        <section id="works" class="max-w-6xl mx-auto px-6 mb-32 scroll-mt-24">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-                
-                <!-- Work Item 1 -->
-                <div class="group cursor-pointer fade-in">
-                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
-                        <img src="https://images.unsplash.com/photo-1579762715118-a6f1d4b934f1?auto=format&fit=crop&w=800&q=80" 
-                             alt="Artwork 1" 
-                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
-                    </div>
-                </div>
-
-                <!-- Work Item 2 -->
-                <div class="group cursor-pointer fade-in">
-                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
-                        <img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?auto=format&fit=crop&w=800&q=80" 
-                             alt="Artwork 2" 
-                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
-                    </div>
-                </div>
-
-                <!-- Work Item 3 -->
-                <div class="group cursor-pointer fade-in">
-                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
-                        <img src="https://images.unsplash.com/photo-1490750967868-88cb4ece70bb?auto=format&fit=crop&w=800&q=80" 
-                             alt="Artwork 3" 
-                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
-                    </div>
-                </div>
-
-                <!-- Work Item 4 -->
-                <div class="group cursor-pointer fade-in">
-                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
-                        <img src="https://images.unsplash.com/photo-1550684376-efcbd6e3f031?auto=format&fit=crop&w=800&q=80" 
-                             alt="Artwork 4" 
-                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
-                    </div>
-                </div>
-
-                <!-- Work Item 5 -->
-                <div class="group cursor-pointer fade-in">
-                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
-                        <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?auto=format&fit=crop&w=800&q=80" 
-                             alt="Artwork 5" 
-                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
-                    </div>
-                </div>
-
-                <!-- Work Item 6 -->
-                <div class="group cursor-pointer fade-in">
-                    <div class="w-full aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
-                        <img src="https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=800&q=80" 
-                             alt="Artwork 6" 
-                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-80">
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="about" class="max-w-2xl mx-auto px-6 py-24 text-center border-t border-gray-100 fade-in scroll-mt-12">
-            <h2 class="text-xl tracking-widest mb-10 font-light">About</h2>
-            <div class="leading-loose text-sm md:text-base text-gray-700 space-y-6">
-                <p>
-                    Ayaka Poppy / Illustrator & Art Director
-                </p>
-                <p>
-                    優しいタッチのイラストレーションと、<br class="md:hidden">あたたかみのあるアートディレクションを手がけています。<br>
-                    日常のささやかな美しさを切り取ることを大切にしています。
-                </p>
-            </div>
-            
-            <div class="mt-12 flex justify-center">
-                <a href="https://www.instagram.com/ayaka_poppy/" target="_blank" rel="noopener noreferrer" 
-                   class="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                    </svg>
-                    <span class="text-sm tracking-widest">@ayaka_poppy</span>
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <footer id="contact" class="w-full py-16 text-center text-xs tracking-widest text-gray-400 bg-gray-50/50">
-        <div class="max-w-2xl mx-auto px-6 fade-in">
-            <p class="mb-6 text-gray-500">
-                お仕事のご依頼やご相談は、<br class="sm:hidden">下記メールアドレスまでお願いいたします。
-            </p>
-            <a href="mailto:hello@example.com" class="text-sm text-gray-700 hover:text-black transition-colors block mb-12 nav-link">
-                hello@example.com
-            </a>
-            <p>&copy; 2026 Ayaka Poppy. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Intersection Observer for fade-in animations on scroll
