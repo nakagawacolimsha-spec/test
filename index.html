@@ -87,13 +87,17 @@
     </header>
 
     <main>
-        <section id="hero" class="max-w-6xl mx-auto px-6 mb-24 md:mb-32 fade-in">
-            <div class="w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-gray-50">
-                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" 
-                     alt="Hero Image - Delicate aesthetic" 
-                     class="w-full h-full object-cover opacity-90 object-center">
+        <!-- ▼▼▼ ここから変更 ▼▼▼ -->
+        <section id="hero" class="w-full mx-auto px-6 mb-24 md:mb-40 fade-in flex justify-center items-center">
+            <!-- 中央に配置されるメイン画像（大きすぎない上品なサイズに制限） -->
+            <div class="w-full max-w-md lg:max-w-lg">
+                <!-- ご自身のトップ画像を images フォルダに入れて名前を合わせます -->
+                <img src="images/main.png" 
+                     alt="Main Illustration" 
+                     class="w-full h-auto object-contain transition-transform duration-700 hover:scale-[1.02]">
             </div>
         </section>
+        <!-- ▲▲▲ ここまで変更 ▲▲▲ -->
 
         <section id="works" class="max-w-6xl mx-auto px-6 mb-32 scroll-mt-24">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
